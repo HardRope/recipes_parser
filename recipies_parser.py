@@ -44,7 +44,7 @@ def parse_recipe(response, category, image_save_path):
     ingredients = [' '.join(ingredient.get_text(strip=True).split()) for ingredient in ingredients_soup]
 
     cooking_steps_soup = soup_of_recipe.select('.detailed_step_description_big')
-    cooking_steps = [step.get_text(strip=True) for step in cooking_steps_soup]
+    cooking_steps = [step.get_text(strip=True).replace('\r\n', ' ') for step in cooking_steps_soup]
 
     image_url = soup_of_recipe.select_one('.bigImgBox a img')['src']
     image_path = download_image(image_url, title, image_save_path)
